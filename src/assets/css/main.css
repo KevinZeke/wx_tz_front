@@ -17,7 +17,7 @@ body {
 }
 
 body {
-    /*background-color: #252830;*/
+    background-color: #f8f8f9;
 }
 
 * {
@@ -25,6 +25,10 @@ body {
     font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
     box-sizing: border-box;
 
+}
+
+.ivu-timeline-item-head{
+        background-color: transparent;
 }
 
 label{
