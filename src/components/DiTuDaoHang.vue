@@ -14,21 +14,19 @@
         </bm-marker>
         <bm-traffic v-if="trafficShow" :predictDate="{weekday: 6, hour: 12}">
         </bm-traffic>
-        <!--<bm-view style="width: 100%; height:95%; flex: 1"></bm-view>-->
-        <!--<button style="position: absolute;z-index: 999;top: 0;"-->
-        <!--class="btn btn-default"-->
-        <!--@click="ctrlModal = !ctrlModal">控制面板-->
-        <!--</button>-->
+        <bm-view style="width: 100%; height:95%; flex: 1"></bm-view>
+        <button style="position: absolute;z-index: 999;top: 0;"
+        class="btn btn-default"
+        @click="ctrlModal = !ctrlModal">控制面板
+        </button>
         <bm-driving
                 :start="from"
                 :end="to"
                 :auto-viewport="true"
         ></bm-driving>
 
-        <div style="position:absolute;top:0;left: 0">
-            <Input v-model="fromText" icon="ios-clock-outline" placeholder="起点"
-                   style="margin: 5px 0" @on-focus="isFrom = true"></Input>
-            <Input v-model="toText" icon="ios-clock-outline" placeholder="终点"
+        <div style="position:absolute;top:0;right: 0">
+            <Input v-model="toText" icon="search" placeholder="终点"
                    style="margin: 5px 0" @on-focus="isFrom = false"></Input>
             <bm-local-search
                     v-if="isFrom"
@@ -46,7 +44,8 @@
                 <p class="col-sm-6 col-xs-6 text-center">显示路况：</p>
                 <p class="text-center col-sm-6 col-xs-6">
                     <i-switch
-                            v-model="trafficShow" @on-change="trafficChange"></i-switch>
+                            v-model="trafficShow"
+                            @on-change="trafficChange"></i-switch>
                 </p>
 
             </div>

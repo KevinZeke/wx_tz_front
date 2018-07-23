@@ -52,7 +52,7 @@
                                 <td>19:19</td>
                             </tr>
                             <tr>
-                                <td colspan=2><button class="btn btn-default">查看更多</button></td>
+                                <td colspan=2><button class="btn btn-sm btn-default">查看更多</button></td>
                             </tr>
                         </tbody>
                     </table>
