@@ -6,19 +6,19 @@ import router from './router'
 import {getJssdkConfig} from "./api/wx"
 import wx from 'weixin-js-sdk'
 // import BaiduMap from 'vue-baidu-map'
-
+import fastclick from 'fastclick'
 import iView from 'iview';
-import 'iview/dist/styles/iview.css';
+import 'iview/dist/styles/iview.css'
 import './assets/css/bootstrap.min.css'
 import './assets/css/main.css'
 
 // Vue.use(BaiduMap, {
-//     // ak 是在百度地图开发者平台申请的密钥 详见 http://lbsyun.baidu.com/apiconsole/key */
 //     ak: 'B105130ef8b3784b23baff3362874405'
 // })
 Vue.config.productionTip = false
-
 Vue.use(iView);
+
+// fastclick.attach(document.body);
 
 getJssdkConfig(location.href.split('#')[0]).then(resp => {
     console.log(resp);

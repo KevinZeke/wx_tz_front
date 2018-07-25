@@ -3,36 +3,51 @@
         <Card v-if="true">
             <p slot="title">
                 <Icon type="person-add"></Icon>
-                今日值班人员
+                值班人员选择列表
             </p>
             <a href="#" slot="extra" @click.prevent="canModify = !canModify">
                 <Icon type="wrench"></Icon>
                 {{canModify?'取消修改':'修改'}}
             </a>
             <div class="row" v-if="luckyGuy.length">
-                <div v-for="idx in luckyGuy" class="text-center luck-list" style="display:inline-block;padding-left:8px">
+                <p class="text-right">
+                    <small>* <span class="ivu-tag-dot-inner" style="background-color:red;">
+
+                    </span>未签到，<span
+                            class="ivu-tag-dot-inner" style="background-color:#4e4dff;">
+
+                    </span>已签到 *
+                    </small>
+                </p>
+                <div v-for="idx in luckyGuy" class="text-center luck-list"
+                     style="display:inline-block;padding-left:8px">
                     <!-- <span style="margin-right: 2px;">{{policeList[idx].name}}</span>
                     <Icon v-if="canModify" @click="removeGuy(idx)" type="close" size="10">
                     </Icon> -->
-                    <Tag type="dot" 
-                        @on-close="removeGuy(idx)"
-                        :closable="canModify" color="blue">{{policeList[idx].name}}</Tag>
+                    <Tag type="dot"
+                         @on-close="removeGuy(idx)"
+                         :closable="canModify" :color="isOnDutySigned[idx]?'blue':'red'">
+                        {{policeList[idx].name}}
+                    </Tag>
                 </div>
             </div>
             <div v-if="luckyGuy.length" class="row" style="padding-top: 2px;margin-top:5px;">
-                
-                <button class="btn-sm btn-default btn btn-success pull-right" @click="submit">确定</button>
-                <router-link 
-                class="btn-sm btn-default btn pull-right" 
-                style="margin-right:10px;"
-                :to="{name:'zhiriDetail'}">查看历史</router-link>
+
+                <button class="btn-xs btn-default btn btn-success pull-right" @click="submit">
+                    提交名单
+                </button>
+                <router-link
+                        class="btn-xs btn-default btn pull-right"
+                        style="margin-right:10px;"
+                        :to="{name:'zhiriDetail'}">查看历史
+                </router-link>
 
             </div>
             <div v-else>
                 <p>暂无人员</p>
             </div>
         </Card>
-        <Table :columns="columns" align="center" :data="policeList"></Table>
+        <Table :row-class-name="rowClassName" :columns="columns" align="center" :data="policeList"></Table>
     </div>
 </template>
 <script>
@@ -94,17 +109,33 @@
                         }
                     }
                 ],
-                policeList: [
-                    
-                ],
-                luckyGuy: []
+                policeList: [],
+                luckyGuy: [],
+                isOnDutySigned: []
             }
         },
         created() {
             this.getPoliceList();
             this.getDutyListToday();
         },
+        computed: {
+            // coloredPoliceList() {
+            //     let res = JSON.parse(JSON.stringify(this.policeList));
+            //     this.luckyGuy.forEach(idx => {
+            //         res[idx].className = 'demo-table-info-column';
+            //     });
+            //     console.log(res);
+            //     return res;
+            // }
+        },
         methods: {
+            rowClassName(row, index) {
+                if (this.luckyGuy.indexOf(index) != -1) {
+                    return 'demo-table-info-row';
+                }
+                return '';
+            },
+
             getDutyListToday() {
                 return getDutyListToday().then(res => {
                     // this.luckyGuy = res.data.data;
@@ -113,6 +144,7 @@
                         this.policeList.forEach((item, idx) => {
                             //console.log(item.name ,lucky.name,item.name==lucky.name)
                             if (item.name == lucky.name) this.addGuy(idx);
+                            this.isOnDutySigned[idx] = false;
                         })
                     })
 
@@ -158,19 +190,19 @@
     }
 
 
-function getRandomName(){
+    function getRandomName() {
 
-return [
-'汤乐', '马淼', '顾国栋', '傅夫子', '滕瑞堂', '滕甜', '齐敏', '安尚', '柳国贤', '金贺祥', '费晨涛',
-'孟轩', '倪轩', '傅益辰', '傅方', '益冉', '瑾春', '滕瑾昆', '春齐', '杨郝', '郝文'
-];
-    
-}
+        return [
+            '汤乐', '马淼', '顾国栋', '傅夫子', '滕瑞堂', '滕甜', '齐敏', '安尚', '柳国贤', '金贺祥', '费晨涛',
+            '孟轩', '倪轩', '傅益辰', '傅方', '益冉', '瑾春', '滕瑾昆', '春齐', '杨郝', '郝文'
+        ];
+
+    }
 
 </script>
 <style>
     .ivu-table .demo-table-info-row td {
-        background-color: #2db7f5;
+        background-color: #3dc7ff;
         color: #fff;
     }
 

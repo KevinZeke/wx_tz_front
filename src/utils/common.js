@@ -47,7 +47,20 @@ export function getNowFormatDate() {
         strDate = "0" + strDate;
     }
     var currentdate = [date.getFullYear() + seperator1 + month + seperator1 + strDate
-            , date.getHours() + seperator2 + date.getMinutes()
-            + seperator2 + date.getSeconds()];
+        , date.getHours() + seperator2 + date.getMinutes()
+        + seperator2 + date.getSeconds()];
     return currentdate;
+}
+
+export function objInArrayHasValue(arr, key, val) {
+    for (let i = 0; i < arr.length; i++) {
+        if (arr[i][key] == val) {
+            return i;
+        }
+    }
+    return -1;
+}
+
+export function yyyMMdd(val) {
+    return new Date(val).Format('yyyy-MM-dd')
 }

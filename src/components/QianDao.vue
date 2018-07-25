@@ -11,7 +11,10 @@
                 <p>月签到次数：{{signedCount}} / {{monthTotalDays}}</p>
                 <Progress :percent="monProgressPer" style="margin-bottom:10px;"></Progress>
                 <Button :type="signed?'dashed':'info'"
-                        @click="sign">{{signed?'已签到':'签到'}}
+                        @click="sign">
+                    <Icon type="log-in" v-if="!signed"></Icon>
+                    <Icon type="checkmark" v-if="signed"></Icon>
+                    {{signed?'已签到':'签到'}}
                 </Button>
             </div>
             <div class="display">
