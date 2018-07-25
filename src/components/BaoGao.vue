@@ -7,54 +7,107 @@
         <FormItem label="报告标题" prop="name">
             <Input v-model="formValidate.name" placeholder="报告标题"></Input>
         </FormItem>
-        <FormItem label="地点" prop="mail">
-            <Input v-model="formValidate.mail" placeholder="地点"></Input>
-        </FormItem>
-        <FormItem label="类型(Test)" prop="city">
-            <Select v-model="formValidate.city" placeholder="类型">
-                <Option value="beijing">A</Option>
-                <Option value="shanghai">B</Option>
-                <Option value="shenzhen">C</Option>
-            </Select>
-        </FormItem>
-        <FormItem label="日期">
+        <FormItem label="报告时间">
             <Row>
                 <Col span="8">
-                    <FormItem prop="date">
+                    <FormItem prop="repDate">
                         <DatePicker type="date" 
-                        			placeholder="日期" 
-                        			v-model="formValidate.date">
+                        			placeholder="报告日期" 
+                        			v-model="formValidate.repDate">
                         </DatePicker>
                     </FormItem>
                 </Col>
                 <Col span="2" style="text-align: center">-</Col>
                 <Col span="9">
-                    <FormItem prop="time">
+                    <FormItem prop="repTime">
                         <TimePicker 
+                        	format="HH:mm"
                         	type="time" 
-                        	placeholder="时间" 
-                        	v-model="formValidate.time"></TimePicker>
+                        	placeholder="报告时间" 
+                        	v-model="formValidate.repTime"></TimePicker>
                     </FormItem>
                 </Col>
             </Row>
         </FormItem>
-        <FormItem label="单选(Test)" prop="gender">
-            <RadioGroup v-model="formValidate.gender">
-                <Radio label="A">A</Radio>
-                <Radio label="B">B</Radio>
-            </RadioGroup>
+        <FormItem label="报警地点" prop="callAddress">
+            <Input v-model="formValidate.callAddress" placeholder="报警地点"></Input>
         </FormItem>
-        <FormItem label="测试" prop="interest">
-            <CheckboxGroup v-model="formValidate.interest">
-                <Checkbox label="A"></Checkbox>
-                <Checkbox label="B"></Checkbox>
-                <Checkbox label="C"></Checkbox>
-                <Checkbox label="D"></Checkbox>
-            </CheckboxGroup>
+        <FormItem label="报警人" prop="callMan">
+            <Input v-model="formValidate.callMan" placeholder="报警人"></Input>
         </FormItem>
-        <FormItem label="描述" prop="desc">
-            <Input v-model="formValidate.desc" type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder="Enter something..."></Input>
+        <FormItem label="火灾地点" prop="fireAddress">
+            <Input v-model="formValidate.fireAddress" placeholder="火灾地点"></Input>
         </FormItem>
+        <FormItem label="出警力量" prop="force">
+            <Input v-model="formValidate.force" placeholder="出警力量"></Input>
+        </FormItem>
+        <FormItem label="燃烧物质" prop="fireObj">
+            <Input v-model="formValidate.fireObj" placeholder="燃烧物质"></Input>
+        </FormItem>
+        <FormItem label="过火面积" prop="burnedArea">
+            <Input v-model="formValidate.burnedArea" placeholder="过火面积"></Input>
+        </FormItem>
+        
+        <FormItem label="到达">
+            <Row>
+                <Col span="8">
+                    <FormItem prop="arrivedDate">
+                        <DatePicker type="date" 
+                        			placeholder="到达火场日期" 
+                        			v-model="formValidate.arrivedDate">
+                        </DatePicker>
+                    </FormItem>
+                </Col>
+                <Col span="2" style="text-align: center">-</Col>
+                <Col span="9">
+                    <FormItem prop="arrivedTime">
+                        <TimePicker 
+                        	format="HH:mm"
+                        	type="time" 
+                        	placeholder="到达火场时间" 
+                        	v-model="formValidate.arrivedTime"></TimePicker>
+                    </FormItem>
+                </Col>
+            </Row>
+        </FormItem>
+		<FormItem label="归队">
+            <Row>
+                <Col span="8">
+                    <FormItem prop="backDate">
+                        <DatePicker type="date" 
+                        			placeholder="归队日期" 
+                        			v-model="formValidate.backDate">
+                        </DatePicker>
+                    </FormItem>
+                </Col>
+                <Col span="2" style="text-align: center">-</Col>
+                <Col span="9">
+                    <FormItem prop="backTime">
+                        <TimePicker 
+                        	format="HH:mm"
+                        	type="time" 
+                        	placeholder="归队时间" 
+                        	v-model="formValidate.backTime"></TimePicker>
+                    </FormItem>
+                </Col>
+            </Row>
+        </FormItem>
+
+        <FormItem label="火灾损失" prop="lose">
+            <Input v-model="formValidate.lose" placeholder="火灾损失"></Input>
+        </FormItem>
+
+        <FormItem label="补救措施" prop="saveMeasure">
+            <Input v-model="formValidate.saveMeasure" type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder="补救措施"></Input>
+        </FormItem>
+        <FormItem label="战评" prop="evaluation">
+            <Input v-model="formValidate.evaluation" type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder="战评"></Input>
+        </FormItem>
+        <FormItem label="建议" prop="advice">
+            <Input v-model="formValidate.advice" type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder="建议"></Input>
+        </FormItem>
+
+
         <FormItem>
             <Button 
             type="primary" 
@@ -69,48 +122,107 @@
 </template>
 <script>
 	import {getAccountInfo} from "../api/wx";
+	import {getNowFormatDate} from "../utils/common";
+
+    let curDateTime = getNowFormatDate();
 
     export default {
         data () {
             return {
                 account:null,
                 formValidate: {
-                    name: '',
-                    mail: '',
-                    city: '',
-                    gender: '',
-                    interest: [],
-                    date: '',
-                    time: '',
-                    desc: ''
+                    name: '消防大队出警报告',
+                    fireAddress: '',
+                    callAddress:'',
+                    callMan:'',
+                    force:'',
+                    fireObj:'',
+                    burnedArea:'',
+                    lose:'',
+
+                    arrivedDate: '',
+                    arrivedTime: '',
+                    backDate:'',
+                    backTime:'',
+                    repDate:curDateTime[0],
+                    repTime:curDateTime[1],
+                    saveMeasure:'',
+                    evaluation:'',
+                    advice:''
                 },
                 ruleValidate: {
                     name: [
                         { required: true, message: '报告标题不能为空', trigger: 'blur' }
                     ],
-                    mail: [
-                        { required: true, message: 'Mailbox cannot be empty', trigger: 'blur' },
+                    fireAddress: [
+                        { required: true, message: '火灾地点不能为空', trigger: 'blur' },
+                        { type: 'string', min: 2, message: '详情介绍不得少于2字', trigger: 'blur' }
                         // { type: 'email', message: 'Incorrect email format', trigger: 'blur' }
                     ],
-                    city: [
-                        { required: true, message: 'Please select the city', trigger: 'change' }
+                    callAddress: [
+                        { required: true, message: '报警地点不能为空', trigger: 'blur' },
+                        { type: 'string', min: 2, message: '报警地点不得少于2字', trigger: 'blur' }
+                        // { type: 'email', message: 'Incorrect email format', trigger: 'blur' }
                     ],
-                    gender: [
-                        { required: true, message: 'Please select gender', trigger: 'change' }
+                    callMan: [
+                        { required: true, message: '报警人姓名不能为空', trigger: 'blur' },
+                        { type: 'string', min: 2, message: '报警人姓名不得少于2字', trigger: 'blur' }
+                        // { type: 'email', message: 'Incorrect email format', trigger: 'blur' }
                     ],
-                    interest: [
-                        { required: true, type: 'array', min: 1, message: 'Choose at least one hobby', trigger: 'change' },
-                        { type: 'array', max: 2, message: 'Choose two hobbies at best', trigger: 'change' }
+                    force: [
+                        { required: true, message: '出警力量不能为空', trigger: 'blur' },
+                        { type: 'string', min: 2, message: '出警力量不得少于2字', trigger: 'blur' }
+                        // { type: 'email', message: 'Incorrect email format', trigger: 'blur' }
                     ],
-                    date: [
-                        { required: true, type: 'date', message: 'Please select the date', trigger: 'change' }
+                    fireObj: [
+                        { required: true, message: '燃烧物质不能为空', trigger: 'blur' },
+                        { type: 'string', min: 2, message: '燃烧物质不得少于2字', trigger: 'blur' }
+                        // { type: 'email', message: 'Incorrect email format', trigger: 'blur' }
                     ],
-                    time: [
-                        { required: true, type: 'string', message: 'Please select time', trigger: 'change' }
+                    burnedArea: [
+                        { required: true, message: '过火面积不能为空', trigger: 'blur' },
+                        { type: 'string', min: 2, message: '过火面积不得少于2字', trigger: 'blur' }
+                        // { type: 'email', message: 'Incorrect email format', trigger: 'blur' }
                     ],
-                    desc: [
-                        { required: true, message: 'Please enter a personal introduction', trigger: 'blur' },
-                        { type: 'string', min: 20, message: '详情介绍不得少于20字', trigger: 'blur' }
+                    lose: [
+                        { required: true, message: '火灾损失不能为空', trigger: 'blur' },
+                        { type: 'string', min: 2, message: '火灾损失不得少于2字', trigger: 'blur' }
+                        // { type: 'email', message: 'Incorrect email format', trigger: 'blur' }
+                    ],
+
+
+                    arrivedDate: [
+                        { required: true, type: 'date', message: '请填写到达时间', trigger: 'change' }
+                    ],
+                    arrivedTime: [
+                        { required: true, type: 'string', message: '请填写到达时间', trigger: 'change' }
+                    ],
+                    backDate: [
+                        { required: true, type: 'date', message: '请填写归队时间', trigger: 'change' }
+                    ],
+                    backTime: [
+                        { required: true, type: 'string', message: '请填写归队时间', trigger: 'change' }
+                    ],
+                    repDate: [
+                        { required: true, type: 'date', message: '请填写报告时间', trigger: 'change' }
+                    ],
+                    repTime: [
+                        { required: true, type: 'string', message: '请填写报告时间', trigger: 'change' }
+                    ],
+
+
+
+                    saveMeasure: [
+                        { required: true, message: '扑救措施不能为空', trigger: 'blur' },
+                        { type: 'string', min: 10, message: '详情介绍不得少于20字', trigger: 'blur' }
+                    ],
+                    evaluation: [
+                        { required: true, message: '战评不能为空', trigger: 'blur' },
+                        { type: 'string', min: 10, message: '战评不得少于10字', trigger: 'blur' }
+                    ],
+                    advice: [
+                        { required: true, message: '建议不能为空', trigger: 'blur' },
+                        { type: 'string', min: 2, message: '建议不得少于2字', trigger: 'blur' }
                     ]
                 }
             }
@@ -122,9 +234,11 @@
             handleSubmit (name) {
                 this.$refs[name].validate((valid) => {
                     if (valid) {
-                        this.$Message.success('Success!');
+                        this.$Message.success('提交成功!');
+                        console.log(this.formValidate);
+                        this.$refs[name].resetFields();
                     } else {
-                        this.$Message.error('Fail!');
+                        this.$Message.error('请按提示完整填写表单!');
                     }
                 })
             },

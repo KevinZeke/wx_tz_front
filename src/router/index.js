@@ -4,6 +4,7 @@ import DiTuDaoHang from '../components/DiTuDaoHang'
 import Qiandao from '../components/QianDao'
 import Baogao from '../components/BaoGao'
 import Zhiri from '../components/ZhiRiPaiBan'
+import ZhiriDetail from '../components/ZhiRiDetail'
 
 
 Vue.use(Router)
@@ -14,6 +15,7 @@ export default new Router({
         {path: '/qiandao', component: Qiandao, name: 'qiandao'},
         {path: '/baogao', component: Baogao, name: 'baogao'},
         {path: '/zhiri', component: Zhiri, name: 'zhiri'},
+        {path: '/zhiriDetail', component: ZhiriDetail, name: 'zhiriDetail'},
 
     ]
 })
